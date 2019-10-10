@@ -1,0 +1,8 @@
+elkconfig:
+  clustername: elasticsearch
+  index: demo
+  hosts:
+    -
+      ip: 192.144.154.86
+      port: 9200
+      schema: http
