@@ -2,10 +2,12 @@ package com.example.demo.services;
 
 import com.example.demo.elk.ESRestClient;
 import com.example.demo.elk.ElkConfig;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.slf4j.Logger;
@@ -57,6 +59,20 @@ public class ElasticSearchService {
             e.printStackTrace();
             throw new RuntimeException("Couldn't get Detail");
         }
+    }
+    public void addRequest(String source) {
+
+        RestHighLevelClient restClient = esRestClient.getClient();
+        IndexRequest indexRequest = new IndexRequest(elkConfig.getIndex());
+        indexRequest.id("5");
+        indexRequest.source(source, XContentType.JSON);
+        try {
+            restClient.index(indexRequest,RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Couldn't get Detail");
+        }
+        return;
     }
 
     /**
@@ -121,6 +137,7 @@ public class ElasticSearchService {
         MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(fieldKey,fieldValue).analyzer("ik_smart");
         return matchQueryBuilder;
     }
+
 
 
 }
