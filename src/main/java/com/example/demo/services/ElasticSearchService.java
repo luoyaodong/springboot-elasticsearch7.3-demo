@@ -60,6 +60,13 @@ public class ElasticSearchService {
             throw new RuntimeException("Couldn't get Detail");
         }
     }
+    /***
+      * @description 增加一条demo数据
+      * @params [source]
+      * @return void
+      * @author luoyaodong
+      * @date 2019/10/10 19:10
+      */
     public void addRequest(String source) {
 
         RestHighLevelClient restClient = esRestClient.getClient();
